@@ -23,6 +23,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_statusbarcolor: ^0.2.3
   simple_animations: ^2.2.1
   delayed_display: ^1.0.3
   animate_icons: ^0.0.4
@@ -36,6 +37,10 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_native_splash: ^0.1.9
+
+flutter_native_splash:
+  color: "7085E2"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
