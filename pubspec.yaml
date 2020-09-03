@@ -23,7 +23,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_statusbarcolor: ^0.2.3
   simple_animations: ^2.2.1
   delayed_display: ^1.0.3
   animate_icons: ^0.0.4
