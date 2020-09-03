@@ -16,7 +16,7 @@ class _FavoriteContactsState extends State<FavoriteContacts> {
   Widget build(BuildContext context) {
     final favorites = users.where((user) => user.isFavorite).toList();
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 20.0),
+      padding: EdgeInsets.symmetric(vertical: 16.0),
       child: Column(
         children: [
           Padding(
@@ -35,7 +35,7 @@ class _FavoriteContactsState extends State<FavoriteContacts> {
             ),
           ),
           Container(
-            height: 120.0,
+            height: 96.0,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               physics: BouncingScrollPhysics(),
@@ -72,8 +72,8 @@ class _FavoriteContactsState extends State<FavoriteContacts> {
         child: Column(
           children: [
             Container(
-              width: 64,
-              height: 64,
+              width: 56,
+              height: 56,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
               ),

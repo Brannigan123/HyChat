@@ -52,8 +52,8 @@ class _ChatTileState extends State<ChatTile> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
-                  width: 64,
-                  height: 64,
+                  width: 52,
+                  height: 52,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                   ),
@@ -65,7 +65,7 @@ class _ChatTileState extends State<ChatTile> {
                           child: Material(
                             type: MaterialType.transparency,
                             child: CircleAvatar(
-                              radius: 64.0,
+                              radius: 52.0,
                               backgroundImage:
                                   AssetImage(chat.contact.imageUrl),
                             ),

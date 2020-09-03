@@ -30,7 +30,7 @@ class _AboutScreenState extends State<AboutScreen> {
             ),
             Positioned.fill(
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 56.0),
+                padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 40.0),
                 child: Flex(
                   direction: Axis.vertical,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -69,8 +69,8 @@ class _AboutScreenState extends State<AboutScreen> {
 
   Widget _avatarView() {
     return Container(
-      width: 150,
-      height: 150,
+      width: 96,
+      height: 96,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
       ),
@@ -82,7 +82,7 @@ class _AboutScreenState extends State<AboutScreen> {
               child: Material(
                 type: MaterialType.transparency,
                 child: CircleAvatar(
-                  radius: 150.0,
+                  radius: 96.0,
                   backgroundImage: AssetImage(widget.user.imageUrl),
                 ),
               ),
@@ -91,8 +91,8 @@ class _AboutScreenState extends State<AboutScreen> {
                 ? Align(
                     alignment: Alignment.topRight,
                     child: Container(
-                      height: 28,
-                      width: 28,
+                      height: 24,
+                      width: 24,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: Theme.of(context).primaryColor.withOpacity(0.8),

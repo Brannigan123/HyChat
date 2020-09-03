@@ -43,8 +43,8 @@ class _ContactTileState extends State<ContactTile> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
-                  width: 64,
-                  height: 64,
+                  width: 52,
+                  height: 52,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                   ),
@@ -56,7 +56,7 @@ class _ContactTileState extends State<ContactTile> {
                           child: Material(
                             type: MaterialType.transparency,
                             child: CircleAvatar(
-                              radius: 64.0,
+                              radius: 52.0,
                               backgroundImage: AssetImage(widget.user.imageUrl),
                             ),
                           ),
