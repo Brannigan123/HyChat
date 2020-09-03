@@ -3,7 +3,8 @@ import 'package:HyChat/models/user_model.dart';
 import 'package:HyChat/widgets/backgrounds.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-
+import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
+import 'package:flutter_keyboard_size/screen_height.dart';
 import 'about_screen.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -17,67 +18,81 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  final inputController = TextEditingController();
+  final _inputController = TextEditingController();
+
+  @override
+  void dispose() {
+    _inputController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final User user = widget.user;
     final List<Message> messages = widget.messages;
 
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Theme.of(context).primaryColor,
-        appBar: AppBar(
-          title: _buildTitle(user),
-          centerTitle: true,
-          elevation: 0.0,
-        ),
-        body: Container(
-          decoration: BoxDecoration(
-            color: Theme.of(context).accentColor,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30.0),
-              topRight: Radius.circular(30.0),
-            ),
+    return KeyboardSizeProvider(
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: Theme.of(context).primaryColor,
+          extendBodyBehindAppBar: true,
+          appBar: AppBar(
+            title: _buildTitle(user),
+            centerTitle: true,
+            elevation: 0.0,
           ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30.0),
-              topRight: Radius.circular(30.0),
-            ),
-            child: Stack(children: [
-              Positioned.fill(child: Particles()),
-              Positioned.fill(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Flex(
-                    direction: Axis.vertical,
-                    children: [
-                      Expanded(
-                        child: ListView.builder(
-                          physics: BouncingScrollPhysics(),
-                          reverse: true,
-                          itemCount: messages.length,
-                          itemBuilder: (ctx, index) {
-                            Widget tile =
-                                _buildMessageContainer(messages[index]);
-                            return index == 0
-                                ? Hero(
-                                    tag: 'user ${user.id} recent message',
-                                    child: Material(
-                                        type: MaterialType.transparency,
-                                        child: tile),
-                                  )
-                                : tile;
-                          },
-                        ),
-                      ),
-                      _buildInputBar(),
-                    ],
-                  ),
-                ),
+          body: Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).accentColor,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30.0),
+                topRight: Radius.circular(30.0),
               ),
-            ]),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30.0),
+                topRight: Radius.circular(30.0),
+              ),
+              child: Stack(
+                children: [
+                  Positioned.fill(child: Particles()),
+                  Container(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: ListView.builder(
+                              physics: BouncingScrollPhysics(),
+                              reverse: true,
+                              itemCount: messages.length,
+                              itemBuilder: (ctx, index) {
+                                Widget tile =
+                                    _buildMessageContainer(messages[index]);
+                                return index == 0
+                                    ? Hero(
+                                        tag: 'user ${user.id} recent message',
+                                        child: Material(
+                                          type: MaterialType.transparency,
+                                          child: tile,
+                                        ),
+                                      )
+                                    : tile;
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            height: 72,
+                            child: _buildInputBar(),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ),
@@ -236,81 +251,57 @@ class _ChatScreenState extends State<ChatScreen> {
       child: Row(
         children: [
           SizedBox(
-            width: 24,
-            height: 24,
-            child: IconButton(
-              padding: EdgeInsets.all(2.0),
-              icon: Icon(
-                Icons.face,
-                size: 20,
-                color: Theme.of(context).primaryColor,
-              ),
-              onPressed: () {},
-            ),
-          ),
-          SizedBox(
-            width: 24,
-            height: 24,
+            width: 30,
+            height: 30,
             child: IconButton(
               padding: EdgeInsets.all(2.0),
               icon: Icon(
                 Icons.image,
-                size: 20,
+                size: 28,
                 color: Theme.of(context).primaryColor,
               ),
               onPressed: () {},
             ),
           ),
+          SizedBox(width: 8),
           Expanded(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.0),
               child: TextField(
-                controller: inputController,
+                controller: _inputController,
                 maxLines: 5,
                 minLines: 1,
                 decoration: InputDecoration(
                   hintText: "Type Something...",
-                  contentPadding: EdgeInsets.fromLTRB(8.0, 2.0, 8.0, 2.0),
+                  contentPadding: EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 4.0),
                 ),
                 onSubmitted: (txt) => _sendText(),
               ),
             ),
           ),
+          SizedBox(width: 8),
           SizedBox(
-            width: 24,
-            height: 24,
-            child: IconButton(
-              padding: EdgeInsets.all(2.0),
-              icon: Icon(
-                Icons.attach_file,
-                size: 20,
-                color: Theme.of(context).primaryColor,
-              ),
-              onPressed: () {},
-            ),
-          ),
-          SizedBox(
-            width: 24,
-            height: 24,
+            width: 30,
+            height: 30,
             child: IconButton(
               padding: EdgeInsets.all(2.0),
               icon: Icon(
                 Icons.send,
-                size: 20,
+                size: 28,
                 color: Theme.of(context).primaryColor,
               ),
               onPressed: _sendText,
             ),
           ),
-          SizedBox(width: 16.0),
+          SizedBox(width: 8),
           SizedBox(
-            width: 24,
-            height: 24,
+            width: 30,
+            height: 30,
             child: IconButton(
               padding: EdgeInsets.all(2.0),
               icon: Icon(
-                Icons.mic,
-                size: 20,
+                Icons.attach_file,
+                size: 28,
                 color: Theme.of(context).primaryColor,
               ),
               onPressed: () {},
@@ -322,7 +313,7 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   void _sendText() {
-    String text = inputController.text;
+    String text = _inputController.text;
     if (text.isNotEmpty)
       setState(() {
         widget.messages.insert(
@@ -335,7 +326,7 @@ class _ChatScreenState extends State<ChatScreen> {
             read: false,
           ),
         );
-        inputController.clear();
+        _inputController.clear();
       });
   }
 }
