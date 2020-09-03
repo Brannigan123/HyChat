@@ -6,6 +6,8 @@ import 'package:HyChat/widgets/online_contcts.dart';
 import 'package:HyChat/widgets/recent_chats.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
@@ -15,6 +17,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  initState() {
+    super.initState();
+    try {
+      FlutterStatusbarcolor.setStatusBarColor(
+        Theme.of(context).primaryColor,
+        animate: true,
+      );
+    } on PlatformException catch (e) {}
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
